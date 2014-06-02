@@ -1,0 +1,30 @@
+<h1>Create a New Album</h1>
+
+<form action="<%= band_albums_url %>" method="POST">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+
+	<label>Album Name: 
+		<input type="text" name="album[name]"></label><br>
+
+	<label>Band Name: 
+		<select name="album[band_id]">
+			<%= Band.all.each do |band| %>
+				<option <%= @album.band_id == band.id ? 'selected' : '' %> value="<%= band.id%>">
+					<%= band.name %>
+				</option>
+			<% end %>
+		</select>
+	</label><br>
+
+	<label>Album Year: 
+		<input type="text" name="album[year]"></label><br>
+
+	<label>Live Recording?
+		<select name="album[live]">
+			<option <%= @album.live ? 'selected' : '' %> value="true">Live</option>
+			<option <%= @album.live ? '' : 'selected' %> value="false">Studio</option>
+		</select>
+	</label><br>
+
+	<input type="submit" value="Create an Album">
+</form>

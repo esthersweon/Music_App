@@ -1,7 +1,18 @@
 <h1><%= @album.name %></h1>
 
 <ul>
-	<li><%= @album.band.name %></li>
 	<li><%= @album.year %></li>
 	<li><%= @album.live ? 'Live Recording' : 'Studio Recording' %></li>
+</ul>
+
+<h3>Band</h3>
+<ul>
+	<li><%= link_to @album.band.name, band_url(@album.band) %></li>
+</ul>
+
+<h3>Tracks</h3>
+<ul>
+	<% @album.tracks.each do |track| %>
+		<li><%= link_to track.name, track_url(track) %></li>
+	<% end %>
 </ul>

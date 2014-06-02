@@ -1,0 +1,17 @@
+<h1><%= @track.name %></h1>
+
+<ul>
+	<li><%= @track.ord %></li>
+	<li><%= @track.bonus ? 'Bonus Track' : 'Regular Track' %></li>
+	<li><%= @track.lyrics %></li>
+</ul>
+
+<h3>Album</h3>
+<ul>
+	<li><%= link_to @track.album.name, album_url(@track.album) %></li>
+</ul>
+
+<h3>Band</h3>
+<ul>
+	<li><%= link_to @track.band.name, band_url(@track.band) %></li>
+</ul>

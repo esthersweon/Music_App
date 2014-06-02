@@ -11,12 +11,13 @@
 #
 
 class User < ActiveRecord::Base
+	attr_reader :password
 	before_validation :ensure_session_token
 	validates :email, :password_digest, :session_token, presence: true
-	validates :email, uniqueness: true
+	validates :email, :session_token, uniqueness: true
 	validates :password, length: {minimum: 6, allow_nil: true}
 
-	attr_accessor :password
+	has_many :notes
 
 	def self.find_by_credentials(email, password)
 		user = User.find_by_email(email)
@@ -24,7 +25,7 @@ class User < ActiveRecord::Base
 		user.is_password?(password) ? user : nil
 	end
 
-	def self.reset_session_token!
+	def reset_session_token!
 		self.session_token = SecureRandom.hex
 		self.save!
 		self.session_token

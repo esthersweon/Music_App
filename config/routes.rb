@@ -6,7 +6,9 @@ MusicApp::Application.routes.draw do
   shallow do
     resources :bands do
       resources :albums do
-        resources :tracks
+        resources :tracks do
+          resources :notes
+        end
       end
     end
   end

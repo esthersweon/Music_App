@@ -15,3 +15,35 @@
 <ul>
 	<li><%= link_to @track.band.name, band_url(@track.band) %></li>
 </ul>
+
+<h3>Notes</h3>
+<ul>
+	<% @track.notes.each do |note| %>
+		<li><%= note.body %>
+			<%= button_to "Delete", note_url(note), method: "delete" %>
+		</li>
+	<% end %>
+</ul>
+
+<h3>Create a New Note</h3>
+
+<form action="<%= track_notes_url(@track.id) %>" method="POST">
+	<input type="hidden" 
+	name="authenticity_token" 
+	value="<%= form_authenticity_token%>">
+	
+	<input type="hidden" 
+	name="note[track_id]" 
+	value="<%= @track.id %>">
+	
+	<input type="hidden" 
+	name="note[user_id]" 
+	value="<%= @user.id%>">
+
+	<label>Body
+		<input type="text" name="note[body]">
+	</label>
+
+	<input type="submit" value="Create New Note">
+
+</form>

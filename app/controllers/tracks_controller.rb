@@ -1,4 +1,6 @@
 class TracksController < ApplicationController
+  before_action :require_signed_in
+  
   def index
     @tracks = Track.all
     render :index
@@ -6,6 +8,7 @@ class TracksController < ApplicationController
 
   def show
     @track = Track.find(params[:id])
+    @user = current_user
     render :show
   end
 
